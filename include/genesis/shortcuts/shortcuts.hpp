@@ -2,7 +2,7 @@
 #define ARKANOIDWITHOUTANENGINE_INCLUDE_TOOLS_SHORTCUTS_SHORTCUTS_HPP_
 
 #include "genesis/physics/physical_properties.hpp"
-#include <SDL.h>
+#include <SDL2/SDL.h>
 
 namespace genesis
 {

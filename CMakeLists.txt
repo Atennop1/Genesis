@@ -39,17 +39,24 @@ add_library(Genesis::Genesis ALIAS Genesis)
 if(WIN32)
     set(SDL2_LIB "${CMAKE_CURRENT_SOURCE_DIR}/dependencies/SDL2/lib/windows/libSDL2.a")
     set(SDL2_IMAGE_LIB "${CMAKE_CURRENT_SOURCE_DIR}/dependencies/SDL2/lib/windows/libSDL2_image.a")
+    set(ADDITIONAL_APIS setupapi user32 gdi32 winmm imm32 version)
 elseif(UNIX)
     set(SDL2_LIB "${CMAKE_CURRENT_SOURCE_DIR}/dependencies/SDL2/lib/linux/libSDL2.a")
     set(SDL2_IMAGE_LIB "${CMAKE_CURRENT_SOURCE_DIR}/dependencies/SDL2/lib/linux/libSDL2_image.a")
 endif()
 
-if(WIN32)
-    set(ADDITIONAL_APIS setupapi winmm imm32 version)
-endif()
+include_directories(dependencies/SDL2/include include/)
+target_link_libraries(Genesis PRIVATE ${SDL2_LIB} ${SDL2_IMAGE_LIB} ${ADDITIONAL_APIS})
 
-include_directories(dependencies/SDL2/include/SDL2 include/)
-target_link_libraries(Genesis ${SDL2_LIB} ${SDL2_IMAGE_LIB} ${ADDITIONAL_APIS})
+add_custom_command(
+        OUTPUT "${CMAKE_BINARY_DIR}/libGenesisCombined.a"
+        COMMAND ar rc libGenesisCombined.a $<TARGET_FILE:Genesis> ${SDL2_LIB} ${SDL2_IMAGE_LIB}
+        COMMAND ranlib libGenesisCombined.a
+        WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
+        COMMENT "Combining Genesis and SDL2 libraries into libGenesisCombined.a")
+
+add_custom_target(combined DEPENDS "${CMAKE_BINARY_DIR}/libGenesisCombined.a")
+
 
 #----------------------------------------------------------------------------------------------------------------------
 # Genesis sources
@@ -109,10 +116,12 @@ target_include_directories(Genesis
 set_target_properties(Genesis PROPERTIES
     SOVERSION ${PROJECT_VERSION_MAJOR}
     VERSION ${PROJECT_VERSION}
-    OUTPUT_NAME "Genesis")
+    OUTPUT_NAME "Genesis"
+    POSITION_INDEPENDENT_CODE on)
 
 if(WIN32 AND BUILD_SHARED_LIBS)
     set_target_properties(Genesis PROPERTIES
+            INTERFACE_LINK_LIBRARIES "${ADDITIONAL_APIS}"
             ARCHIVE_OUTPUT_NAME ""
             PREFIX "")
 endif()
