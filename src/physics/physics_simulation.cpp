@@ -1,7 +1,6 @@
 ﻿#include "genesis/physics/physics_simulation.hpp"
 #include <algorithm>
 #include <list>
-#include <stdexcept>
 
 namespace genesis
 {
@@ -41,20 +40,13 @@ void PhysicsSimulation::Update(float delta)
 
 void PhysicsSimulation::Add(SharedPointer<IPhysicsObject> &object)
 {
-    if (std::find(objects_.begin(), objects_.end(), object) != objects_.end())
-        throw std::invalid_argument("PhysicsObject already in loop");
-
-    objects_.push_back(object);
+    if (std::find(objects_.begin(), objects_.end(), object) == objects_.end())
+        objects_.push_back(object);
 }
 
 void PhysicsSimulation::Remove(SharedPointer<IPhysicsObject> &object)
 {
     if (auto find_iterator = std::find(objects_.begin(), objects_.end(), object); find_iterator != objects_.end())
-    {
         objects_.erase(find_iterator);
-        return;
-    }
-
-    throw std::invalid_argument("PhysicsObject doesn't in loop");
 }
 }

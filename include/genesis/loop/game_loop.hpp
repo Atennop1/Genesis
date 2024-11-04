@@ -23,9 +23,7 @@ public:
     void Remove(SharedPointer<IGameLoopObject> &&object) { Remove(object); }
 
 private:
-    bool is_active_ = true;
     SharedPointer<GameTime> game_time_;
-
     SharedPointer<ApplicationEvents> events_;
     std::vector<SharedPointer<IGameLoopObject>> objects_ = { };
 };

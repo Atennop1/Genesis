@@ -9,7 +9,7 @@ Input::Input(SharedPointer<ApplicationEvents> events)
 void Input::Update(float delta)
 {
     pressed_this_frame_keys_.clear();
-    std::vector<SDL_Event*> events = events_->GetEventsOfType({ SDL_KEYDOWN, SDL_KEYUP });
+    std::vector<SDL_Event*> events = events_->GetEventsOfTypes({SDL_KEYDOWN, SDL_KEYUP});
 
     for (auto event : events)
     {

@@ -60,6 +60,8 @@ endif()
 set(sources
     include/genesis/events/input.hpp
     include/genesis/events/application_events.hpp
+    include/genesis/exiting/exit_event.hpp
+    include/genesis/exiting/application_exiter.hpp
     include/genesis/loop/objects/game_loop_object.hpp
     include/genesis/loop/objects/game_object.hpp
     include/genesis/loop/game_time.hpp
@@ -75,6 +77,7 @@ set(sources
     include/genesis/shortcuts/shortcuts.hpp
     src/events/application_events.cpp
     src/events/input.cpp
+    src/exiting/application_exiter.cpp
     src/loop/game_loop.cpp
     src/loop/game_time.cpp
     src/math/vector2.cpp

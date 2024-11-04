@@ -1,5 +1,5 @@
 ﻿#include "genesis/loop/game_loop.hpp"
-#include <stdexcept>
+#include "genesis/exiting/exit_event.hpp"
 #include <algorithm>
 
 namespace genesis
@@ -9,7 +9,7 @@ GameLoop::GameLoop(SharedPointer<GameTime> game_time, SharedPointer<ApplicationE
 
 void GameLoop::Activate()
 {
-    while (is_active_)
+    while (true)
     {
         if (!game_time_->IsActive())
             continue;
@@ -20,27 +20,20 @@ void GameLoop::Activate()
         for (auto &updatable: objects_)
             updatable->Update(delta);
 
-        if (!events_->GetEventsOfType(SDL_QUIT).empty())
-            is_active_ = false;
+        if (!events_->GetEventsWithCodes(GENESIS_EXIT_CODE).empty())
+            break;
     }
 }
 
 void GameLoop::Add(SharedPointer<IGameLoopObject> &object)
 {
-    if (std::find(objects_.begin(), objects_.end(), object) != objects_.end())
-        throw std::invalid_argument("Updatable already in loop");
-
-    objects_.push_back(object);
+    if (std::find(objects_.begin(), objects_.end(), object) == objects_.end())
+        objects_.push_back(object);
 }
 
 void GameLoop::Remove(SharedPointer<IGameLoopObject> &object)
 {
     if (auto find_iterator = std::find(objects_.begin(), objects_.end(), object); find_iterator != objects_.end())
-    {
         objects_.erase(find_iterator);
-        return;
-    }
-
-    throw std::invalid_argument("Updatable does not in loop");
 }
 }
