@@ -43,7 +43,7 @@ elseif(UNIX)
     set(SDL2_LIB "${CMAKE_CURRENT_SOURCE_DIR}/dependencies/SDL2/lib/linux/libSDL2.a")
 endif()
 
-include_directories(dependencies/SDL2/include include/)
+include_directories(dependencies/SDL2/include/SDL2 include/)
 target_link_libraries(Genesis PRIVATE ${SDL2_LIB} ${ADDITIONAL_APIS})
 
 #----------------------------------------------------------------------------------------------------------------------

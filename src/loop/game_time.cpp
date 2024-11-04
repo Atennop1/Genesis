@@ -1,5 +1,5 @@
 #include "genesis/loop/game_time.hpp"
-#include <SDL2/SDL.h>
+#include <SDL.h>
 
 namespace genesis
 {
