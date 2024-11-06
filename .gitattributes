@@ -1,2 +1,4 @@
 * text=auto
 libs/** linguist-vendored
+cmake/** linguist-vendored
+CMakeLists.txt linguist-vendored
