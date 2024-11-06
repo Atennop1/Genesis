@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.19)
 project(Genesis
     VERSION 1.0.0
-    DESCRIPTION "Simple 2D game engine based on SDL2 and written in C++"
+    DESCRIPTION "Simple 2D game engine written in C++ using SDL2 and OOP"
     LANGUAGES CXX)
 
 #----------------------------------------------------------------------------------------------------------------------
@@ -13,7 +13,6 @@ include(GNUInstallDirs)
 
 string(COMPARE EQUAL "${CMAKE_SOURCE_DIR}" "${CMAKE_CURRENT_SOURCE_DIR}" is_top_level)
 
-option(GENESIS_BUILD_EXAMPLES "Build Genesis examples" OFF)
 option(GENESIS_INSTALL "Generate target for installing Genesis" ${is_top_level})
 set_if_undefined(GENESIS_INSTALL_CMAKEDIR "${CMAKE_INSTALL_LIBDIR}/cmake/Genesis" CACHE STRING "Install path for Genesis package-related CMake files")
 
@@ -171,12 +170,4 @@ if(GENESIS_INSTALL AND NOT CMAKE_SKIP_INSTALL_RULES)
             DESTINATION "${pdb_file_destination}"
             OPTIONAL)
     endif()
-endif()
-
-#----------------------------------------------------------------------------------------------------------------------
-# Other targets
-#----------------------------------------------------------------------------------------------------------------------
-
-if(GENESIS_BUILD_EXAMPLES)
-    add_subdirectory(examples)
 endif()

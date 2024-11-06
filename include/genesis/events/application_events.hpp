@@ -11,7 +11,7 @@ namespace genesis
 class ApplicationEvents : public IGameLoopObject
 {
 public:
-    void Update(float delta) override;
+    virtual void Update(float delta) override;
 
     std::vector<SDL_Event*> GetEventsOfTypes(std::vector<Uint32> types);
     std::vector<SDL_Event*> GetEventsOfTypes(Uint32 type) { return GetEventsOfTypes(std::vector<Uint32>{type}); }

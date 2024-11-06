@@ -12,7 +12,7 @@ class ApplicationExiter : public IGameLoopObject
 public:
     ApplicationExiter(SharedPointer<Input> input);
 
-    void Update(float delta) override;
+    virtual void Update(float delta) override;
 
 private:
     Uint32 exit_event_type_;

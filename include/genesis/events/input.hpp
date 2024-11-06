@@ -13,7 +13,7 @@ class Input : public IGameLoopObject
 public:
     Input(SharedPointer<ApplicationEvents> events);
 
-    void Update(float delta) override;
+    virtual void Update(float delta) override;
     bool IsKeyPressed(SDL_Keycode key_type) const;
     bool IsKeyPressedThisFrame(SDL_Keycode key_type) const;
 
