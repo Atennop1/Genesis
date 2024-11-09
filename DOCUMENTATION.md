@@ -2,13 +2,13 @@
 This file contains fairly comprehensive documentation on Genesis components and how they work, as well as code examples that can help you better understand the material.
 
 ### Table of contents
-1. [**Brief note**](#brief-note)
+1. [**Notes**](#notes)
 2. [**Game Loop**](#game-loop)
 3. [**Physics Simulation**](#physics-simulation)
-4. [**Rendering Components**](#rendering-components)
+4. [**Rendering**](#rendering)
 5. [**Event Handling**](#event-handling)
 
-## Brief note
+## Notes
 - The code follows Google's style almost entirely, except for a few things I changed, but they are not related to naming and are not visible to the end user.
 - For all mathematical operations, my implementation of a two-dimensional vector Vector2 is used with overloaded parameters and certain basic functions.
 - The library has several shortcuts, located in the static class `genesis::Shortcuts`, which are intended to simplify the rendering code. Since the physical simulation uses the classic Cartesian coordinate system and takes the coordinates of objects as their center, and SDL2 displays objects from the upper left corner and its Y axis is inverted, a module is needed to convert physical properties to `SDL_FRect`, which is what the shortcuts are. They include the `PhysicalPropertiesToRect`, `PositionAndSizeToRect` and `PositionAndTextureToRect` functions.
@@ -16,5 +16,5 @@ This file contains fairly comprehensive documentation on Genesis components and 
 
 ## Game Loop
 ## Physics Simulation
-## Rendering Components
-## Event handling
+## Rendering
+## Event Handling
