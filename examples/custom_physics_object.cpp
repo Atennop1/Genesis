@@ -24,7 +24,7 @@ public:
 
     virtual void Update(float delta) override
     {
-        SDL_FRect rect = genesis::Shortcuts::PhysicalPropertiesToRect(Properties());
+        SDL_FRect rect = genesis::Shortcuts::PhysicalPropertiesToRect(references_.Window(), Properties());
         SDL_SetRenderDrawColor(references_.Renderer(), 255, 255, 255, 255);
         SDL_RenderDrawRectF(references_.Renderer(), &rect);
     }
@@ -62,11 +62,11 @@ int main(int argc, char **argv)
 
     // Adding custom physics objects to loop
 // =====================================================================================================================
-    auto example1 = genesis::SharedPointer(new Example(genesis::PhysicalProperties {{ 500, 500 }, { 50, 50 }, { 1, 1 }, { 10, 10} }, window_references));
+    auto example1 = genesis::SharedPointer(new Example(genesis::PhysicalProperties {{ 500, 500 }, { 50, 50 }, { 1, 1 }, { 10, 10 } }, window_references));
     game_loop->Add(example1);
     physics_simulation->Add(example1);
 
-    auto example2 = genesis::SharedPointer(new Example(genesis::PhysicalProperties {{ 1500, 100 }, { 50, 50 }, { -1, 1 }, { -10, 10} }, window_references));
+    auto example2 = genesis::SharedPointer(new Example(genesis::PhysicalProperties {{ 1500, 100 }, { 50, 50 }, { -1, 1 }, { -10, 10 } }, window_references));
     game_loop->Add(example2);
     physics_simulation->Add(example2);
 // =====================================================================================================================

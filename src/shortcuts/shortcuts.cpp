@@ -2,27 +2,33 @@
 
 namespace genesis
 {
-SDL_FRect Shortcuts::PhysicalPropertiesToRect(PhysicalProperties properties)
+SDL_FRect Shortcuts::PhysicalPropertiesToRect(SDL_Window* window, PhysicalProperties properties)
 {
     SDL_FRect rect;
     rect.x = properties.Left();
-    rect.y = properties.Top();
     rect.w = properties.size.x;
     rect.h = properties.size.y;
+
+    int window_height = 0;
+    SDL_GetWindowSize(window, NULL, &window_height);
+    rect.y = window_height - properties.Top();
     return rect;
 }
 
-SDL_FRect Shortcuts::PositionAndSizeToRect(Vector2 position, Vector2 size)
+SDL_FRect Shortcuts::PositionAndSizeToRect(SDL_Window* window, Vector2 position, Vector2 size)
 {
     SDL_FRect rect;
+    rect.x = position.x - size.x / 2.0f;
     rect.w = size.x;
     rect.h = size.y;
-    rect.x = position.x - size.x / 2.0f;
-    rect.y = position.y - size.y / 2.0f;
+
+    int window_height = 0;
+    SDL_GetWindowSize(window, NULL, &window_height);
+    rect.y = window_height - position.y - size.y / 2.0f;
     return rect;
 }
 
-SDL_FRect Shortcuts::PositionAndTextureToRect(Vector2 position, SDL_Texture *texture, float position_multiplier, float size_multiplier)
+SDL_FRect Shortcuts::PositionAndTextureToRect(SDL_Window* window, Vector2 position, SDL_Texture *texture, float position_multiplier, float size_multiplier)
 {
     int width = 0;
     int height = 0;
@@ -32,7 +38,10 @@ SDL_FRect Shortcuts::PositionAndTextureToRect(Vector2 position, SDL_Texture *tex
     rect.h = (float)height * size_multiplier;
     rect.w = (float)width * size_multiplier;
     rect.x = position.x * position_multiplier - rect.w / 2.0f;
-    rect.y = position.y * position_multiplier - rect.h / 2.0f;
+
+    int window_height = 0;
+    SDL_GetWindowSize(window, NULL, &window_height);
+    rect.y = window_height - position.y * position_multiplier - rect.h / 2.0f;
     return rect;
 }
 }

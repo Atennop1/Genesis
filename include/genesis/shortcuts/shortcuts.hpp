@@ -9,9 +9,9 @@ namespace genesis
 class Shortcuts
 {
 public:
-    static SDL_FRect PhysicalPropertiesToRect(PhysicalProperties properties);
-    static SDL_FRect PositionAndSizeToRect(Vector2 position, Vector2 size);
-    static SDL_FRect PositionAndTextureToRect(Vector2 position, SDL_Texture *texture, float position_multiplier = 1, float size_multiplier = 1);
+    static SDL_FRect PhysicalPropertiesToRect(SDL_Window* window, PhysicalProperties properties);
+    static SDL_FRect PositionAndSizeToRect(SDL_Window* window, Vector2 position, Vector2 size);
+    static SDL_FRect PositionAndTextureToRect(SDL_Window* window, Vector2 position, SDL_Texture *texture, float position_multiplier = 1, float size_multiplier = 1);
 };
 }
 
